@@ -16,13 +16,13 @@ const Hero: React.FC = () => {
     >
       {/* Vector background decorations */}
       <div className="absolute inset-0 -z-10 opacity-30">
-        <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-float opacity-20"></div>
+        <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-float opacity-20"></div>
         <div
-          className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-float opacity-20"
+          className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-float opacity-20"
           style={{ animationDelay: "2s" }}
         ></div>
         <svg
-          className="absolute -bottom-36 -right-36 w-[32rem] h-[32rem] text-blue-300"
+          className="absolute -bottom-24 -right-24 w-96 h-96 text-blue-300"
           viewBox="0 0 200 200"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
           />
         </svg>
         <svg
-          className="absolute -top-36 -left-36 w-[32rem] h-[32rem] text-blue-300"
+          className="absolute -top-24 -left-24 w-96 h-96 text-blue-300"
           viewBox="0 0 200 200"
           xmlns="http://www.w3.org/2000/svg"
         >
