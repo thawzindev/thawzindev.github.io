@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
       <div className="section-container flex flex-col md:flex-row justify-between items-center py-0">
         <div className="mb-6 md:mb-0">
           <p className="text-muted-foreground">
-            © {currentYear} Portfolio. All rights reserved.
+            © {currentYear} Thaw Zin Htoo. All rights reserved.
           </p>
         </div>
         

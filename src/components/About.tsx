@@ -2,7 +2,7 @@
 import React from 'react';
 import { useIntersectionObserver } from '@/lib/animations';
 import { cn } from '@/lib/utils';
-import { Code, Layout, Layers, Palette } from 'lucide-react';
+import { Code, Database, Layout, Server } from 'lucide-react';
 
 const About: React.FC = () => {
   const [isIntroVisible, introRef] = useIntersectionObserver();
@@ -10,24 +10,24 @@ const About: React.FC = () => {
 
   const skills = [
     {
-      title: 'UI/UX Design',
-      description: 'Creating intuitive and visually stunning user interfaces with careful attention to usability.',
-      icon: <Palette className="w-8 h-8 mb-4 text-primary" />,
+      title: 'Backend Development',
+      description: 'API design, system optimization, and database management for scalable applications.',
+      icon: <Server className="w-8 h-8 mb-4 text-primary" />,
     },
     {
       title: 'Frontend Development',
-      description: 'Building responsive, fast, and accessible web applications using modern technologies.',
+      description: 'Creating responsive and intuitive user interfaces that enhance the overall user experience.',
       icon: <Code className="w-8 h-8 mb-4 text-primary" />,
+    },
+    {
+      title: 'Database Management',
+      description: 'Designing efficient database structures and optimizing queries for better performance.',
+      icon: <Database className="w-8 h-8 mb-4 text-primary" />,
     },
     {
       title: 'Responsive Design',
       description: 'Ensuring websites look and function perfectly across all devices and screen sizes.',
       icon: <Layout className="w-8 h-8 mb-4 text-primary" />,
-    },
-    {
-      title: 'Creative Solutions',
-      description: 'Solving complex problems with elegant solutions that balance form and function.',
-      icon: <Layers className="w-8 h-8 mb-4 text-primary" />,
     },
   ];
 
@@ -45,15 +45,15 @@ const About: React.FC = () => {
             <div className="space-y-6">
               <div>
                 <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1 chip">About me</p>
-                <h2 className="text-3xl sm:text-4xl font-semibold mb-6">Passionate about creating meaningful digital experiences</h2>
+                <h2 className="text-3xl sm:text-4xl font-semibold mb-6">Senior Full-stack Developer from Bangkok, Thailand</h2>
               </div>
               
               <p className="text-muted-foreground text-lg leading-relaxed">
-                I'm a designer and developer with a focus on creating elegant, functional, and user-centered digital experiences. With attention to detail and a commitment to quality, I approach each project as an opportunity to solve problems and deliver exceptional results.
+                As a versatile full-stack developer, I specialize in building secure and scalable web applications. My expertise spans backend development, including API design, system optimization, and database management.
               </p>
               
               <p className="text-muted-foreground text-lg leading-relaxed">
-                My design philosophy is centered around simplicity, clarity, and purpose. I believe that great design should be invisible, allowing users to intuitively accomplish their goals without friction or confusion.
+                On the frontend, I excel at creating intuitive, responsive user interfaces that enhance the user experience. My comprehensive skill set enables me to deliver end-to-end solutions, seamlessly integrating backend architecture with refined frontend design for cohesive, high-performing products.
               </p>
             </div>
           </div>

@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 
 const Index: React.FC = () => {
   useEffect(() => {
-    document.title = 'Portfolio';
+    document.title = 'Thaw Zin Htoo | Portfolio';
   }, []);
 
   return (

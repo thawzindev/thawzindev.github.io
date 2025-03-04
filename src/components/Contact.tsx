@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useIntersectionObserver } from '@/lib/animations';
 import { cn } from '@/lib/utils';
-import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 const Contact: React.FC = () => {
@@ -159,8 +159,8 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Email</p>
-                    <a href="mailto:hello@example.com" className="font-medium hover:text-primary transition-colors">
-                      hello@example.com
+                    <a href="mailto:thawzin99777@gmail.com" className="font-medium hover:text-primary transition-colors">
+                      thawzin99777@gmail.com
                     </a>
                   </div>
                 </div>
@@ -171,8 +171,8 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Phone</p>
-                    <a href="tel:+1234567890" className="font-medium hover:text-primary transition-colors">
-                      +1 (234) 567-890
+                    <a href="tel:+66937900167" className="font-medium hover:text-primary transition-colors">
+                      +66 937900167
                     </a>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Location</p>
-                    <p className="font-medium">San Francisco, CA</p>
+                    <p className="font-medium">Bangkok, Thailand</p>
                   </div>
                 </div>
               </div>
@@ -191,16 +191,24 @@ const Contact: React.FC = () => {
               <div className="mt-10">
                 <h4 className="text-sm font-medium mb-4">Connect with me</h4>
                 <div className="flex gap-4">
-                  {['Twitter', 'LinkedIn', 'GitHub', 'Dribbble'].map((platform) => (
-                    <a
-                      key={platform}
-                      href="#"
-                      className="bg-secondary/70 hover:bg-secondary w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                      aria-label={platform}
-                    >
-                      <span className="text-xs font-medium">{platform.charAt(0)}</span>
-                    </a>
-                  ))}
+                  <a
+                    href="https://linkedin.com/in/thawzinhtoo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-secondary/70 hover:bg-secondary w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+                  <a
+                    href="https://github.com/thawzin.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-secondary/70 hover:bg-secondary w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                    aria-label="GitHub"
+                  >
+                    <Github size={18} />
+                  </a>
                 </div>
               </div>
             </div>
