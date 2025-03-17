@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+
+import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useIntersectionObserver } from "@/lib/animations";
 import {
   ExternalLink,
   Github,
@@ -12,8 +12,37 @@ import {
 
 const Projects: React.FC = () => {
   const [activeProject, setActiveProject] = useState(0);
-  const [isHeadingVisible, headingRef] = useIntersectionObserver();
-  const [isProjectsVisible, projectsRef] = useIntersectionObserver();
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Intersection Observer logic for each project
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3, // 30% visibility triggers the animation
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-project-stack', 'opacity-100');
+          entry.target.classList.remove('opacity-0', 'translate-y-16');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, options);
+    
+    projectRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      projectRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
 
   const projects = [
     {
@@ -54,7 +83,7 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      className="py-18 sm:py-24 bg-secondary/50 relative overflow-hidden"
+      className="py-20 sm:py-32 bg-gradient-to-b from-secondary/30 to-background/80 relative overflow-hidden"
     >
       {/* Vector decorations */}
       <div className="absolute top-0 left-0 right-0 h-1/3 overflow-hidden -z-10">
@@ -71,20 +100,13 @@ const Projects: React.FC = () => {
       </div>
 
       <div className="section-container">
-        <div
-          ref={headingRef as React.RefCallback<HTMLDivElement>}
-          className={cn(
-            "text-center mb-16 transition-all duration-700 ease-smooth",
-            isHeadingVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-10"
-          )}
-        >
-          <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1 chip">
+        {/* Section heading */}
+        <div className="text-center mb-20">
+          <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1 chip inline-block">
             Portfolio
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
-            Some of my projects
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold mb-6">
+            Featured Projects
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and
@@ -92,42 +114,34 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        <div
-          ref={projectsRef as React.RefCallback<HTMLDivElement>}
-          className={cn(
-            "transition-all duration-700 ease-smooth",
-            isProjectsVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-10"
-          )}
-        >
+        {/* Projects list */}
+        <div className="space-y-28 mt-16">
           {projects.map((project, index) => (
             <div
               key={project.title}
+              ref={(el) => (projectRefs.current[index] = el)}
               className={cn(
-                "mb-24 last:mb-0 transition-all duration-700 ease-smooth",
-                index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse",
-                isProjectsVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                "opacity-0 translate-y-16 transition-all duration-700 ease-out",
+                "mb-24 last:mb-0",
+                index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
               )}
-              style={{ transitionDelay: `${index * 200}ms` }}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+              <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
                 {/* Project image */}
-                <div className="w-full lg:w-7/12 overflow-hidden rounded-xl relative">
+                <div className="w-full lg:w-7/12 overflow-hidden rounded-2xl shadow-xl relative group">
                   <div
-                    className="relative aspect-video overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02] group cursor-pointer"
+                    className="relative aspect-video overflow-hidden rounded-2xl transition-all duration-500 hover:scale-[1.02] group cursor-pointer"
                     onMouseEnter={() => setActiveProject(index)}
                     onClick={() => window.open(project.demoLink, "_blank")}
                   >
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="glass-panel px-6 py-3 rounded-full text-white font-medium text-sm">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="glass-panel px-6 py-3 rounded-full text-white font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                         View Project
                       </div>
                     </div>
@@ -150,20 +164,20 @@ const Projects: React.FC = () => {
 
                 {/* Project details */}
                 <div className="w-full lg:w-5/12">
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-full bg-primary/10">
                       {project.icon}
                     </div>
-                    <h3 className="text-2xl font-semibold">{project.title}</h3>
+                    <h3 className="text-2xl font-display font-semibold">{project.title}</h3>
                   </div>
 
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-muted-foreground mb-6">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-8">
                     {project.tags.map((tag) => (
-                      <span key={tag} className="chip">
+                      <span key={tag} className="chip bg-secondary/80 hover:bg-secondary transition-colors duration-300">
                         {tag}
                       </span>
                     ))}
@@ -174,7 +188,7 @@ const Projects: React.FC = () => {
                       href={project.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm btn-hover-effect"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm shadow-sm btn-hover-effect"
                     >
                       <ExternalLink size={16} />
                       <span>Live Demo</span>
@@ -183,7 +197,7 @@ const Projects: React.FC = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm btn-hover-effect"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-secondary-foreground text-sm shadow-sm btn-hover-effect"
                     >
                       <Github size={16} />
                       <span>Source Code</span>

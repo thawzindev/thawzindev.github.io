@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				display: ['SF Pro Display', 'Inter', 'sans-serif'],
+				display: ['Montserrat', 'SF Pro Display', 'Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -155,6 +154,16 @@ export default {
 					'100%': {
 						transform: 'rotate(360deg)'
 					}
+				},
+				'project-card-stack': {
+					'0%': {
+						transform: 'translateY(100px)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'translateY(0)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
@@ -166,7 +175,8 @@ export default {
 				'slide-up': 'slide-up 0.7s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'blur-in': 'blur-in 0.6s ease-out',
-				'rotate-slow': 'rotate-slow 10s linear infinite'
+				'rotate-slow': 'rotate-slow 10s linear infinite',
+				'project-stack': 'project-card-stack 0.7s ease-out forwards'
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.65, 0, 0.35, 1)',
