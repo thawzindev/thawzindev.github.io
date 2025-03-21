@@ -130,14 +130,15 @@ const Hero: React.FC = () => {
             delay: 1.2,
             ease: "easeOut"
           }}
+        />
+        
+        <motion.div
+          className="absolute bottom-10"
           animate={{ y: [0, 10, 0] }}
           transition={{
-            y: {
-              repeat: Infinity,
-              duration: 1.5,
-              ease: "easeInOut",
-              delay: 1.2
-            }
+            repeat: Infinity,
+            duration: 1.5,
+            ease: "easeInOut"
           }}
         >
           <ArrowDownCircle size={36} className="text-muted-foreground/50" />
