@@ -246,7 +246,7 @@ const Contact: React.FC = () => {
                     <Linkedin size={18} />
                   </a>
                   <a
-                    href="https://github.com/thawzin.dev"
+                    href="https://github.com/thawzindev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-secondary/70 hover:bg-secondary w-10 h-10 rounded-full flex items-center justify-center transition-colors"

@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -18,21 +17,21 @@ const Projects: React.FC = () => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: "0px",
       threshold: 0.3, // 30% visibility triggers the animation
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-project-stack', 'opacity-100');
-          entry.target.classList.remove('opacity-0', 'translate-y-16');
+          entry.target.classList.add("animate-project-stack", "opacity-100");
+          entry.target.classList.remove("opacity-0", "translate-y-16");
         }
       });
     };
 
     const observer = new IntersectionObserver(observerCallback, options);
-    
+
     projectRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
@@ -44,39 +43,74 @@ const Projects: React.FC = () => {
     };
   }, []);
 
-  const projects = [
+  interface Project {
+    title: string;
+    description: string;
+    tags: string[];
+    image: string;
+    icon: React.ReactNode;
+    link: string;
+    githubLink?: string;
+  }
+
+  const projects: Project[] = [
     {
-      title: "Modern E-commerce Platform",
+      title: "AYA Payment Gateway",
       description:
-        "A complete e-commerce solution with shopping cart, payment processing, and order management.",
-      tags: ["React", "Node.js", "Stripe", "Tailwind CSS"],
-      image:
-        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=800&q=80",
-      demoLink: "#",
-      githubLink: "#",
+        "Led development of a scalable payment gateway integrating major local payment channels with Visa, MasterCard, and JCB. Handles thousands of monthly transactions for Myanmar's leading e-commerce platform and local merchants.",
+      tags: [
+        "Payment Integration",
+        "Postgres",
+        "Laravel",
+        "Reporting",
+        "Analytics",
+      ],
+      image: "/images/apg.png",
+      icon: <Server className="w-6 h-6" />,
+      link: "https://demo-payment.ayainnovation.com/",
+    },
+    {
+      title: "ATOM Pay",
+      description:
+        "Developed mobile balance recharge platform supporting various payment methods including 2C2P, Wave Money, and other digital wallets. Created secure and seamless transaction experience for users across Myanmar.",
+      tags: ["Payment Integration", "Laravel", "Postgres", "Telecom"],
+      image: "/images/atom.jpeg",
+      link: "https://pay.atom.com.mm/",
+      icon: <Server className="w-6 h-6" />,
+    },
+    {
+      title: "Pyoneplay",
+      description:
+        "Built backend and dashboard for Myanmar's leading OTT platform. Developed RESTful APIs, managed video content, integrated streaming services, and optimized database performance for secure, scalable delivery of live and on-demand content.",
+      tags: [
+        "Laravel",
+        "Redis",
+        "Queue",
+        "BunnyCDN",
+        "Streaming",
+        "Reporting",
+        "Analytics",
+      ],
+      image: "/images/pyoneplay.png",
+      link: "https://www.pyoneplay.com/",
+      // githubLink: "#",
       icon: <Layout className="w-6 h-6" />,
     },
     {
-      title: "Personal Finance Dashboard",
+      title: "AYA Pay",
       description:
-        "Interactive dashboard for tracking expenses, investments, and financial goals with data visualization.",
-      tags: ["Vue.js", "D3.js", "Firebase", "Figma"],
-      image:
-        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=800&q=80",
-      demoLink: "#",
-      githubLink: "#",
+        "Contributed to backend development for AYA Pay digital wallet. Designed secure payment APIs and transaction processing systems, focusing on reliability, data consistency, and improved user transaction experience.",
+      tags: [
+        "NodeJS",
+        "Express",
+        "MongoDB",
+        "Redis",
+        "Event Driven Architecture",
+        "Microservices",
+      ],
+      image: "/images/ayapay.png",
+      link: "https://www.ayapay.com/",
       icon: <Database className="w-6 h-6" />,
-    },
-    {
-      title: "Healthcare Appointment System",
-      description:
-        "Platform for patients to schedule appointments with healthcare providers and manage medical records.",
-      tags: ["TypeScript", "NextJS", "PostgreSQL", "Tailwind CSS"],
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=800&q=80",
-      demoLink: "#",
-      githubLink: "#",
-      icon: <Server className="w-6 h-6" />,
     },
   ];
 
@@ -133,7 +167,7 @@ const Projects: React.FC = () => {
                   <div
                     className="relative aspect-video overflow-hidden rounded-2xl transition-all duration-500 hover:scale-[1.02] group cursor-pointer"
                     onMouseEnter={() => setActiveProject(index)}
-                    onClick={() => window.open(project.demoLink, "_blank")}
+                    onClick={() => window.open(project.link, "_blank")}
                   >
                     <img
                       src={project.image}
@@ -168,7 +202,9 @@ const Projects: React.FC = () => {
                     <div className="p-2 rounded-full bg-primary/10">
                       {project.icon}
                     </div>
-                    <h3 className="text-2xl font-display font-semibold">{project.title}</h3>
+                    <h3 className="text-2xl font-display font-semibold">
+                      {project.title}
+                    </h3>
                   </div>
 
                   <p className="text-muted-foreground mb-6">
@@ -177,7 +213,10 @@ const Projects: React.FC = () => {
 
                   <div className="flex flex-wrap gap-2 mb-8">
                     {project.tags.map((tag) => (
-                      <span key={tag} className="chip bg-secondary/80 hover:bg-secondary transition-colors duration-300">
+                      <span
+                        key={tag}
+                        className="chip bg-secondary/80 hover:bg-secondary transition-colors duration-300"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -185,7 +224,7 @@ const Projects: React.FC = () => {
 
                   <div className="flex gap-4">
                     <a
-                      href={project.demoLink}
+                      href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm shadow-sm btn-hover-effect"
@@ -193,15 +232,17 @@ const Projects: React.FC = () => {
                       <ExternalLink size={16} />
                       <span>Live Demo</span>
                     </a>
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-secondary-foreground text-sm shadow-sm btn-hover-effect"
-                    >
-                      <Github size={16} />
-                      <span>Source Code</span>
-                    </a>
+                    {project?.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-secondary-foreground text-sm shadow-sm btn-hover-effect"
+                      >
+                        <Github size={16} />
+                        <span>Source Code</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
